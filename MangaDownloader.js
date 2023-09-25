@@ -4,8 +4,8 @@
 // @version      1.2.1
 // @description  Userscript By HaruCraft para Unknown Realm Scan
 // @author       HaruCraft
-// @updateURL https://raw.githubusercontent.com/CryingHaru/The-secretcave/main/MangaDownloader.js
-// @downloadURL https://raw.githubusercontent.com/CryingHaru/The-secretcave/main/MangaDownloader.js
+// @updateURL https://raw.githubusercontent.com/CryingHaru/tools/main/MangaDownloader.js
+// @downloadURL https://raw.githubusercontent.com/CryingHaru/tools/main/MangaDownloader.js
 // @match        https://lectortmo.com/*/*/cascade
 // @match        https://page.kakao.com/content/*/viewer/*
 // @match        https://mangadex.org/chapter/*/*
