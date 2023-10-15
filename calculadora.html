@@ -20,9 +20,9 @@
                 }
             }
 
-            var teoria = (teoria_total / 4) * 0.25;
-            var practica = (practica_total / 4) * 0.25;
-            var notaFinal = (teoria + practica) * 10;
+            var teoria = (teoria_total / 40) * 25;
+            var practica = (practica_total / 40) * 25;
+            var notaFinal = teoria + practica;
             document.getElementById('resultado').innerHTML = "La nota actual es: " + notaFinal.toFixed(2);
         }
     </script>
@@ -31,21 +31,21 @@
     <h1>Calculadora de Notas</h1>
     <p>Introduce las calificaciones:</p>
     <label for="e1">E1:</label>
-    <input type="number" id="e1" step="0.01"><br>
+    <input type="number" id="e1" step="0.01" value="10"><br>
     <label for="e2">E2:</label>
-    <input type="number" id="e2" step="0.01"><br>
+    <input type="number" id="e2" step="0.01" value="10"><br>
     <label for="e3">E3:</label>
-    <input type="number" id="e3" step="0.01"><br>
+    <input type="number" id="e3" step="0.01" value="10"><br>
     <label for="e4">E4:</label>
-    <input type="number" id="e4" step="0.01"><br><br>
+    <input type="number" id="e4" step="0.01" value="10"><br><br>
     <label for="l1">L1:</label>
-    <input type="number" id="l1" step="0.01"><br>
+    <input type="number" id="l1" step="0.01" value="10"><br>
     <label for="l2">L2:</label>
-    <input type="number" id="l2" step="0.01"><br>
+    <input type="number" id="l2" step="0.01" value="10"><br>
     <label for="l3">L3:</label>
-    <input type="number" id="l3" step="0.01"><br>
+    <input type="number" id="l3" step="0.01" value="10"><br>
     <label for="l4">L4:</label>
-    <input type="number" id="l4" step="0.01"><br><br>
+    <input type="number" id="l4" step="0.01" value="10"><br><br>
     <button onclick="calcularNota()">Calcular</button>
     <p id="resultado"></p>
 </body>
