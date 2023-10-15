@@ -6,25 +6,26 @@
         function calcularNota() {
             var sum_teoria = 0;
             var sum_practica = 0;
-            var count_teoria = 0;
-            var count_practica = 0;
+            var total_teoria = 0;
+            var total_practica = 0;
 
             for (let i = 1; i <= 4; i++) {
                 var teoria_value = parseFloat(document.getElementById('e' + i).value);
+                var practica_value = parseFloat(document.getElementById('l' + i).value);
+
                 if (!isNaN(teoria_value)) {
                     sum_teoria += teoria_value;
-                    count_teoria++;
+                    total_teoria += 25;
                 }
 
-                var practica_value = parseFloat(document.getElementById('l' + i).value);
                 if (!isNaN(practica_value)) {
                     sum_practica += practica_value;
-                    count_practica++;
+                    total_practica += 25;
                 }
             }
 
-            var teoria = count_teoria > 0 ? sum_teoria / count_teoria : 0;
-            var practica = count_practica > 0 ? sum_practica / count_practica : 0;
+            var teoria = sum_teoria / total_teoria;
+            var practica = sum_practica / total_practica;
             var notaFinal = (teoria * 0.25) + (practica * 0.25);
             document.getElementById('resultado').innerHTML = "La nota actual es: " + notaFinal.toFixed(2);
         }
