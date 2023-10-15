@@ -2,51 +2,69 @@
 <html>
 <head>
     <title>Calculadora de Notas</title>
-    <script>
-        function calcularNota() {
-            var teoria_total = 0;
-            var practica_total = 0;
-
-            for (let i = 1; i <= 4; i++) {
-                var teoria_value = parseFloat(document.getElementById('e' + i).value);
-                var practica_value = parseFloat(document.getElementById('l' + i).value);
-
-                if (!isNaN(teoria_value)) {
-                    teoria_total += teoria_value;
-                }
-
-                if (!isNaN(practica_value)) {
-                    practica_total += practica_value;
-                }
-            }
-
-            var teoria = (teoria_total / 40) * 25;
-            var practica = (practica_total / 40) * 25;
-            var notaFinal = teoria + practica;
-            document.getElementById('resultado').innerHTML = "La nota actual es: " + notaFinal.toFixed(2);
-        }
-    </script>
 </head>
 <body>
-    <h1>Calculadora de Notas</h1>
-    <p>Introduce las calificaciones:</p>
-    <label for="e1">E1:</label>
-    <input type="number" id="e1" step="0.01" value="10"><br>
-    <label for="e2">E2:</label>
-    <input type="number" id="e2" step="0.01" value="10"><br>
-    <label for="e3">E3:</label>
-    <input type="number" id="e3" step="0.01" value="10"><br>
-    <label for="e4">E4:</label>
-    <input type="number" id="e4" step="0.01" value="10"><br><br>
-    <label for="l1">L1:</label>
-    <input type="number" id="l1" step="0.01" value="10"><br>
-    <label for="l2">L2:</label>
-    <input type="number" id="l2" step="0.01" value="10"><br>
-    <label for="l3">L3:</label>
-    <input type="number" id="l3" step="0.01" value="10"><br>
-    <label for="l4">L4:</label>
-    <input type="number" id="l4" step="0.01" value="10"><br><br>
-    <button onclick="calcularNota()">Calcular</button>
-    <p id="resultado"></p>
+    <h2>TEORÍA:</h2>
+    <form id="teoriaForm">
+        <label for="E1">E1:</label>
+        <input type="number" id="E1" step="0.01"><br><br>
+        <label for="E2">E2:</label>
+        <input type="number" id="E2" step="0.01"><br><br>
+        <label for="E3">E3:</label>
+        <input type="number" id="E3" step="0.01"><br><br>
+        <label for="E4">E4:</label>
+        <input type="number" id="E4" step="0.01"><br><br>
+    </form>
+
+    <h2>PRACTICA:</h2>
+    <form id="practicaForm">
+        <label for="L1">L1:</label>
+        <input type="number" id="L1" step="0.01"><br><br>
+        <label for="L2">L2:</label>
+        <input type="number" id="L2" step="0.01"><br><br>
+        <label for="L3">L3:</label>
+        <input type="number" id="L3" step="0.01"><br><br>
+        <label for="L4">L4:</label>
+        <input type="number" id="L4" step="0.01"><br><br>
+    </form>
+
+    <button onclick="calcularNotas()">Calcular Nota Final</button>
+
+    <p id="result"></p>
+
+    <script>
+        function calcularNotas() {
+            var teoriaNotas = [parseFloat(document.getElementById('E1').value || 0), parseFloat(document.getElementById('E2').value || 0), parseFloat(document.getElementById('E3').value || 0), parseFloat(document.getElementById('E4').value || 0)];
+            var practicaNotas = [parseFloat(document.getElementById('L1').value || 0), parseFloat(document.getElementById('L2').value || 0), parseFloat(document.getElementById('L3').value || 0), parseFloat(document.getElementById('L4').value || 0)];
+
+            var teoriaPonderada = teoriaNotas.map(nota => nota * 0.25);
+            var practicaPonderada = practicaNotas.map(nota => nota * 0.25);
+
+            var sumaTeoria = teoriaPonderada.reduce((a, b) => a + b, 0);
+            var sumaPractica = practicaPonderada.reduce((a, b) => a + b, 0);
+
+            var notaFinal = ((sumaTeoria + sumaPractica).toFixed(2))/2;
+
+            if (isNaN(notaFinal)) {
+                document.getElementById('result').innerHTML = "Por favor ingrese todas las notas.";
+            } else if (notaFinal < 7) {
+                var notaFaltanteTeoria = calcularNotaFaltante(teoriaNotas[0], 0.25, teoriaNotas.slice(1), 7);
+                var notaFaltantePractica = calcularNotaFaltante(practicaNotas[0], 0.25, practicaNotas.slice(1), 7);
+                if(notaFaltanteTeoria<0){
+                notaFaltanteTeoria =0}
+                if(notaFaltantePractica<0){
+                notaFaltantePractica =0}
+                document.getElementById('result').innerHTML = "La nota final es: " + notaFinal + "<br> Deberías obtener al menos " + notaFaltanteTeoria + " en las teorías y " + notaFaltantePractica + " en las prácticas para alcanzar 7 en la nota final.";
+            } else {
+                document.getElementById('result').innerHTML = "La nota final es: " + notaFinal;
+            }
+        }
+
+        function calcularNotaFaltante(notaExistente, peso, notasRestantes, objetivo) {
+            var sumaNotasRestantes = notasRestantes.reduce((a, b) => a + b, 0);
+            var notaFaltante = ((objetivo - (notaExistente * peso) - (sumaNotasRestantes * 0.25)) / (1 - peso)).toFixed(2);
+            return notaFaltante;
+        }
+    </script>
 </body>
 </html>
