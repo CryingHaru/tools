@@ -6,8 +6,6 @@
         function calcularNota() {
             var sum_teoria = 0;
             var sum_practica = 0;
-            var total_teoria = 0;
-            var total_practica = 0;
 
             for (let i = 1; i <= 4; i++) {
                 var teoria_value = parseFloat(document.getElementById('e' + i).value);
@@ -15,17 +13,15 @@
 
                 if (!isNaN(teoria_value)) {
                     sum_teoria += teoria_value;
-                    total_teoria += 25;
                 }
 
                 if (!isNaN(practica_value)) {
                     sum_practica += practica_value;
-                    total_practica += 25;
                 }
             }
 
-            var teoria = sum_teoria / total_teoria;
-            var practica = sum_practica / total_practica;
+            var teoria = sum_teoria / 100;
+            var practica = sum_practica / 100;
             var notaFinal = (teoria * 0.25) + (practica * 0.25);
             document.getElementById('resultado').innerHTML = "La nota actual es: " + notaFinal.toFixed(2);
         }
