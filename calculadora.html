@@ -4,25 +4,25 @@
     <title>Calculadora de Notas</title>
     <script>
         function calcularNota() {
-            var sum_teoria = 0;
-            var sum_practica = 0;
+            var teoria_total = 0;
+            var practica_total = 0;
 
             for (let i = 1; i <= 4; i++) {
                 var teoria_value = parseFloat(document.getElementById('e' + i).value);
                 var practica_value = parseFloat(document.getElementById('l' + i).value);
 
                 if (!isNaN(teoria_value)) {
-                    sum_teoria += teoria_value;
+                    teoria_total += teoria_value;
                 }
 
                 if (!isNaN(practica_value)) {
-                    sum_practica += practica_value;
+                    practica_total += practica_value;
                 }
             }
 
-            var teoria = sum_teoria / 100;
-            var practica = sum_practica / 100;
-            var notaFinal = (teoria * 0.25) + (practica * 0.25);
+            var teoria = (teoria_total / 4) * 0.25;
+            var practica = (practica_total / 4) * 0.25;
+            var notaFinal = (teoria + practica) * 10;
             document.getElementById('resultado').innerHTML = "La nota actual es: " + notaFinal.toFixed(2);
         }
     </script>
