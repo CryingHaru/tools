@@ -56,7 +56,7 @@ function loadFont(fontFile) {
                 document.fonts.add(loadedFont);
                 resolve('MyFont');
             }).catch(function () {
-                resolve(fuente)
+                reject(fuente)
             });
         };
         reader.readAsArrayBuffer(fontFile);
