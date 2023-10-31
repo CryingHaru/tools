@@ -1,4 +1,4 @@
-let fuente = 'Arial';
+let fuente = 'Times';
 const canvas = document.getElementById('imagen');
 const ctx = canvas.getContext('2d');
 const divt = document.getElementById('rightDiv');
@@ -25,7 +25,14 @@ function crearInputs() {
         input.style.display = 'none';
         input.name = 'Fuentes';
         input.id = `fuentes${inputId}`;
-        input.accept = '.ttf,.otf,.woff,.woff2,.zip';
+        input.accept = '.ttf,.otf,.woff,.woff2';
+        input.addEventListener('change', function() {
+             if (input.files.length > 0) {
+                 label.style.color = '#234a24';
+                } else {
+                 label.style.color = ''; // Vuelve al color por defecto si no hay archivo seleccionado
+                }
+             });
 
         const label = document.createElement('label');
         label.htmlFor = `fuentes${inputId}`;
