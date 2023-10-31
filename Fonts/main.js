@@ -55,13 +55,8 @@ function loadFont(fontFile) {
             font.load().then(function (loadedFont) {
                 document.fonts.add(loadedFont);
                 resolve('MyFont');
-            }).catch(function () {
-                const defaultFont = new FontFace('Times New Roman', 'url(https://fonts.cdnfonts.com/s/11785/times-new-roman.ttf)');
-                defaultFont.load().then(function (loadedDefaultFont) {
-                    document.fonts.add(loadedDefaultFont);
-                    resolve('Times New Roman');
-                }).catch(function (error) {
-                    reject('Times New Roman');
+           }).catch(function (error) {
+                    reject(error);
                 });
             });
         };
@@ -100,10 +95,13 @@ async function llenarTexto() {
         const input = inputs[i];
         
 
-      const font = await loadFont(fontFiles[i].files[0]);
-       console.log(font)
-        y = renderText(input, TamanioFuente, font, y);
-    }
+      try {
+    const font = await loadFont(fontFiles[i].files[0]);
+    y = renderText(input, TamanioFuente, font, y);
+} catch (error) {
+    console.error('An error occurred:', error);
+    y = renderText(input, TamanioFuente, 'Times New Roman', y);
+} }
 }
 
 
