@@ -6,8 +6,6 @@ const inputFuentes = document.getElementById("fuentes");
 let inputId = 0;
 canvas.width = 800;
 canvas.height = 800;
-ctx.fillStyle = 'white';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
 function crearInputs() {
     if (inputId < 11) {
         const inputTexto = document.createElement('input');
