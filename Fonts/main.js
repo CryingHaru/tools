@@ -106,10 +106,9 @@ async function llenarTexto() {
 
 
 function downloadCanvas() {
-    var context = canvas.getContext('2d');
-    context.globalCompositeOperation = 'destination-over';
-    context.fillStyle = 'white';
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     var dataURL = canvas.toDataURL('image/png');
     const a = document.createElement('a');
