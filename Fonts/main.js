@@ -94,7 +94,7 @@ async function llenarTexto() {
         const input = inputs[i];
         
 
-      const font = await loadFont(fontFiles[i].files[0]);.
+      const font = await loadFont(fontFiles[i].files[0]);
        console.log(font)
         y = renderText(input, TamanioFuente, font, y);
     }
