@@ -56,7 +56,13 @@ function loadFont(fontFile) {
                 document.fonts.add(loadedFont);
                 resolve('MyFont');
             }).catch(function () {
-                reject(fuente)
+                const defaultFont = new FontFace('Times New Roman', 'url(https://fonts.cdnfonts.com/s/11785/times-new-roman.ttf)');
+                defaultFont.load().then(function (loadedDefaultFont) {
+                    document.fonts.add(loadedDefaultFont);
+                    resolve('Times New Roman');
+                }).catch(function (error) {
+                    reject('Times New Roman');
+                });
             });
         };
         reader.readAsArrayBuffer(fontFile);
