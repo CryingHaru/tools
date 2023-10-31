@@ -75,9 +75,11 @@ function renderText(input, TamanioFuente, font, y) {
 }
 
 async function llenarTexto() {
-    ctx.fillStyle = '#ffffff';
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.textAlign = 'center';
+    ctx.fillStyle = 'black';
     let y = 50; 
 
     const inputs = document.querySelectorAll('input[type="text"]');
