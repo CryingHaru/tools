@@ -99,6 +99,7 @@ async function llenarTexto() {
 
         try {
             const font = await loadFont(fontFile);
+            console.log(font)
             fonts.push(font);
         } catch (error) {
             console.log('Error loading font: ' + error);
