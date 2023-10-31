@@ -28,9 +28,9 @@ function crearInputs() {
         input.accept = '.ttf,.otf,.woff,.woff2';
         input.addEventListener('change', function() {
              if (input.files.length > 0) {
-                 label.style.color = '#234a24';
+                 label.style.background = '#234a24';
                 } else {
-                 label.style.color = ''; // Vuelve al color por defecto si no hay archivo seleccionado
+                 label.style.background = ''; // Vuelve al color por defecto si no hay archivo seleccionado
                 }
              });
 
