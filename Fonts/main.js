@@ -117,7 +117,7 @@ function downloadcanvas() {
     var url = dataURL.replace(/^data:image\/jpeg/, 'data:application/octet-stream')
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'canvas.png';
+    a.download = 'Fuentes.jpg';
     a.click();
 };
 
