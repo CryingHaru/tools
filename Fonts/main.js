@@ -75,11 +75,10 @@ function renderText(input, TamanioFuente, font, y) {
 }
 
 async function llenarTexto() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.textAlign = 'center';
-    let y = 50; // Inicializa la posición vertical.
+    let y = 50; 
 
     const inputs = document.querySelectorAll('input[type="text"]');
     const fuentes = document.querySelectorAll('input[type="number"]');
