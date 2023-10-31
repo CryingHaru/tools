@@ -90,30 +90,14 @@ async function llenarTexto() {
     const fuentes = document.querySelectorAll('input[type="number"]');
     const fontFiles = document.querySelectorAll('input[type="file"]');
 
-    const fonts = [];
-
-    for (let i = 0; i < fontFiles.length; i++) {
-        const TamanioFuente = fuentes[i].value;
-        const input = inputs[i];
-        const fontFile = fontFiles[i].files[0];
-
-        try {
-            const font = await loadFont(fontFile);
-            console.log(font)
             fonts.push(font);
-        } catch (error) {
-            console.log('Error loading font: ' + error);
-            fonts.push('Arial'); // Usar Arial como respaldo en caso de error.
-        }
-    }
-
     for (let i = 0; i < inputs.length; i++) {
         const TamanioFuente = fuentes[i].value;
         const input = inputs[i];
-        const font = fonts[i]; // Obtener la fuente correspondiente.
+        const font = ; // Obtener la fuente correspondiente.
 
-        // Dibuja el texto y obtén su métrica de altura.
-       
+      const font = await loadFont(fontFiles[i].files[0]);.
+       console.log(font)
         y = renderText(input, TamanioFuente, font, y);
     }
 }
