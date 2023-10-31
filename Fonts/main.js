@@ -58,7 +58,6 @@ function loadFont(fontFile) {
            }).catch(function (error) {
                     reject(error);
                 });
-            });
         };
         reader.readAsArrayBuffer(fontFile);
     });
