@@ -89,12 +89,10 @@ async function llenarTexto() {
     const inputs = document.querySelectorAll('input[type="text"]');
     const fuentes = document.querySelectorAll('input[type="number"]');
     const fontFiles = document.querySelectorAll('input[type="file"]');
-
-            fonts.push(font);
     for (let i = 0; i < inputs.length; i++) {
         const TamanioFuente = fuentes[i].value;
         const input = inputs[i];
-        const font = ; // Obtener la fuente correspondiente.
+        
 
       const font = await loadFont(fontFiles[i].files[0]);.
        console.log(font)
