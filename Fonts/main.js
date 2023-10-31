@@ -113,10 +113,10 @@ async function llenarTexto() {
 
 
 function downloadcanvas() {
-    // Convert the canvas to a Blob object
-    const dataUrl = canvas.toDataURL('image/png');
+      var dataURL = canvas.toDataURL('image/jpeg');
+    var url = dataURL.replace(/^data:image\/jpeg/, 'data:application/octet-stream')
     const a = document.createElement('a');
-    a.href = dataUrl;
+    a.href = url;
     a.download = 'canvas.png';
     a.click();
 };
