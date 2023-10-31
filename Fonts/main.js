@@ -76,6 +76,8 @@ function renderText(input, TamanioFuente, font, y) {
 
 async function llenarTexto() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.textAlign = 'center';
     let y = 50; // Inicializa la posición vertical.
 
@@ -113,11 +115,10 @@ async function llenarTexto() {
 
 
 function downloadcanvas() {
-      var dataURL = canvas.toDataURL('image/jpeg');
-    var url = dataURL.replace(/^data:image\/jpeg/, 'data:application/octet-stream')
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Fuentes.jpg';
+      var dataURL = canvas.toDataURL('image/png');
+     const a = document.createElement('a');
+    a.href = dataURL;
+    a.download = 'Fuentes.png';
     a.click();
 };
 
