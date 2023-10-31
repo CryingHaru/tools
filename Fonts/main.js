@@ -103,11 +103,11 @@ async function llenarTexto() {
 } }
 }
 
-function downloadCanvas() {
-    var currentImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+function downloadcanvas() {
+    ctx.globalCompositeOperation = 'destination-over';
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.putImageData(currentImageData, 0, 0);
+
     var dataURL = canvas.toDataURL('image/png');
     const a = document.createElement('a');
     a.href = dataURL;
