@@ -119,12 +119,16 @@ async function llenarTexto() {
 
 
 
-function downloadcanvas() {
-      var dataURL = canvas.toDataURL('image/png');
-     const a = document.createElement('a');
+function downloadCanvas() {
+    var context = canvas.getContext('2d');
+    context.globalCompositeOperation = 'destination-over';
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    var dataURL = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
     a.href = dataURL;
     a.download = 'Fuentes.png';
     a.click();
-};
-
+}
 
