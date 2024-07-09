@@ -41,102 +41,133 @@
             <button onclick="copyToClipboard(0)">Copiar Codigo</button>
         </div>
     </div>
-    <script>
-        function desencrip() {
-            var ciphertext = JSON.parse(document.getElementById("entrada").value);
-            var key = document.getElementById("llave").value
-            var salida = document.getElementById("salida")
-            var decrypted = CryptoJS.AES.decrypt(ciphertext, key);
-            var decryptedData = decrypted.toString(CryptoJS.enc.Utf8);
-            var decryptedObject = JSON.stringify(decryptedData);
-            salida.value = ""
-            salida.value = decryptedData
-        }
-        function encrip() {
-            var text = document.getElementById("salida").value
-            var key = document.getElementById("llave").value
-            var resalida = document.getElementById("encrypted")
-            const encrypted = CryptoJS.AES.encrypt(text, key);
-            const encryptedString = encrypted.toString();
-            const dataURI = JSON.stringify(encryptedString);
-            resalida.value = dataURI
-        }
-        function obfuscateCode() {
-            var input = document.getElementById("inputCode").value;
 
-            var obfuscatedCode = JavaScriptObfuscator.obfuscate(input, {
-                compact: true,
-                controlFlowFlattening: true,
-                deadCodeInjection: true,
-                deadCodeInjectionThreshold: 0.4,
-                renameGlobals: true,
-                stringArray: true,
-                stringArrayThreshold: 0.75,
-                unicodeEscapeSequence: true
-            }).getObfuscatedCode();
+    <hr>
 
-            document.getElementById("outputCode").value = obfuscatedCode;
-        }
-        function copyToClipboard(valor) {
-            if (valor == 0) {
-                var output = document.getElementById("outputCode");
-            } else {
-                var output = document.getElementById("encrypted")
+    <div class="container">
+        <h1>excel to excel</h1>
+        <input type="file" id="excel" onchange="normalizar()" value=".xlsx">
+        <script>
+            function desencrip() {
+                let ciphertext = JSON.parse(document.getElementById("entrada").value);
+                let key = document.getElementById("llave").value
+                let salida = document.getElementById("salida")
+                let decrypted = CryptoJS.AES.decrypt(ciphertext, key);
+                let decryptedData = decrypted.toString(CryptoJS.enc.Utf8);
+                let decryptedObject = JSON.stringify(decryptedData);
+                salida.value = ""
+                salida.value = decryptedData
             }
-            output.select();
-            document.execCommand("copy");
-            alert("¡copiado!");
-        }
-        function convertJSONToExcel() {
-            var jsonText = document.getElementById('salida').value;
-            var jsonData = JSON.parse(jsonText);
-
-            var dataArray = Object.values(jsonData);
-
-            var worksheet = XLSX.utils.json_to_sheet(dataArray);
-            var workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-
-            var wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
-
-            function s2ab(s) {
-                var buf = new ArrayBuffer(s.length);
-                var view = new Uint8Array(buf);
-                for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
-                return buf;
+            function encrip() {
+                let text = document.getElementById("salida").value
+                let key = document.getElementById("llave").value
+                let resalida = document.getElementById("encrypted")
+                const encrypted = CryptoJS.AES.encrypt(text, key);
+                const encryptedString = encrypted.toString();
+                const dataURI = JSON.stringify(encryptedString);
+                resalida.value = dataURI
             }
+            function obfuscateCode() {
+                let input = document.getElementById("inputCode").value;
 
-            var fileName = "output.xlsx";
-            var blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+                let obfuscatedCode = JavaScriptObfuscator.obfuscate(input, {
+                    compact: true,
+                    controlFlowFlattening: true,
+                    deadCodeInjection: true,
+                    deadCodeInjectionThreshold: 0.4,
+                    renameGlobals: true,
+                    stringArray: true,
+                    stringArrayThreshold: 0.75,
+                    unicodeEscapeSequence: true
+                }).getObfuscatedCode();
 
-            if (navigator.msSaveBlob) {
-                navigator.msSaveBlob(blob, fileName);
-            } else {
-                var link = document.createElement('a');
-                if (link.download !== undefined) {
-                    var url = URL.createObjectURL(blob);
+                document.getElementById("outputCode").value = obfuscatedCode;
+            }
+            function copyToClipboard(valor) {
+                if (valor == 0) {
+                    let output = document.getElementById("outputCode");
+                } else {
+                    let output = document.getElementById("encrypted")
+                }
+                output.select();
+                document.execCommand("copy");
+                alert("¡copiado!");
+            }
+            function convertJSONToExcel() {
+                let jsonText = document.getElementById('salida').value;
+                let jsonData = JSON.parse(jsonText);
+
+                let dataArray = Object.values(jsonData);
+
+                let worksheet = XLSX.utils.json_to_sheet(dataArray);
+                let workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+                let wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
+
+                function s2ab(s) {
+                    let buf = new ArrayBuffer(s.length);
+                    let view = new Uint8Array(buf);
+                    for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+                    return buf;
+                }
+
+                let fileName = "output.xlsx";
+                let blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+
+                if (navigator.msSaveBlob) {
+                    navigator.msSaveBlob(blob, fileName);
+                } else {
+                    let link = document.createElement('a');
+                    if (link.download !== undefined) {
+                        let url = URL.createObjectURL(blob);
+                        link.setAttribute('href', url);
+                        link.setAttribute('download', fileName);
+                        link.style.visibility = 'hidden';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }
+                }
+            }
+            function cargar() {
+                const fileInput = document.getElementById('fileInput');
+                const textarea = document.getElementById('entrada');
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const contents = e.target.result;
+                    textarea.value = contents;
+                };
+                reader.readAsText(file);
+            };
+            function normalizar() {
+                console.log("test");
+                const fileInput = document.getElementById('excel');
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const contents = e.target.result;
+                    let workbook = XLSX.read(contents, { type: 'binary' });
+                    let newexcel = XLSX.utils.book_new();
+                    // Copia directamente la hoja sin convertir a JSON
+                    let sheet = workbook.Sheets[workbook.SheetNames[0]];
+                    XLSX.utils.book_append_sheet(newexcel, sheet, "Sheet1");
+                    let wbout = XLSX.write(newexcel, { bookType: 'xlsx', type: 'array' });
+                    let blob = new Blob([wbout], { type: 'application/octet-stream' });
+                    let fileName = "output.xlsx";
+                    let url = URL.createObjectURL(blob);
+                    let link = document.createElement('a');
                     link.setAttribute('href', url);
                     link.setAttribute('download', fileName);
-                    link.style.visibility = 'hidden';
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
-                }
-            }
-        }
-function cargar(){
-    const fileInput = document.getElementById('fileInput');
-    const textarea = document.getElementById('entrada');
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const contents = e.target.result;
-        textarea.value = contents;
-      };
-      reader.readAsText(file);
-    };
+                };
+                reader.readAsBinaryString(file);
+            };
 
-    </script>
+        </script>
 </body>
 
 </html>
