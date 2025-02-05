@@ -1,11 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pruebas</title>
+    <title>纸牌游戏</title>
+    <style>
+        .游戏区域 { padding: 20px; }
+        .牌堆 { 
+            display: inline-block;
+            width: 100px;
+            height: 140px;
+            border: 1px solid black;
+            margin: 5px;
+            vertical-align: top;
+        }
+        .牌 {
+            background: white;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px;
+            width: 80px;
+            height: 120px;
+            cursor: move;
+        }
+        .红桃, .方块 { color: red; }
+        .梅花, .黑桃 { color: black; }
+        .隐藏 { background: #006600; }
+        button { margin: 10px; }
+    </style>
 </head>
 <body>
-    
+    <div class="游戏区域">
+        <div id="基础牌堆"></div>
+        <div id="发牌堆" class="牌堆"></div>
+        <div id="抽牌堆" class="牌堆"></div>
+        <div id="桌面牌堆"></div>
+        <button onclick="新游戏()">新游戏</button>
+        <button onclick="抽牌()">抽牌</button>
+    </div>
+
+    <script>
+        let 牌堆 = [];
+        let 当前选中牌 = null;
+
+        function 初始化牌堆() {
+            const 花色 = ['红桃', '方块', '梅花', '黑桃'];
+            const 点数 = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三'];
+            
+            for (let 花 of 花色) {
+                for (let 点 of 点数) {
+                    牌堆.push({ 花色: 花, 点数: 点, 可见: false });
+                }
+            }
+            牌堆 = 洗牌(牌堆);
+        }
+
+        function 洗牌(牌组) {
+            for (let 甲 = 牌组.length - 1; 甲 > 0; 甲--) {
+                const 乙 = Math.floor(Math.random() * (甲 + 1));
+                [牌组[甲], 牌组[乙]] = [牌组[乙], 牌组[甲]];
+            }
+            return 牌组;
+        }
+
+        function 创建牌元素(牌) {
+            const 牌元素 = document.createElement('div');
+            牌元素.className = `牌 ${牌.花色}`;
+            牌元素.draggable = true;
+            牌元素.innerHTML = `${牌.花色}<br>${牌.点数}`;
+            牌元素.牌数据 = 牌;
+            牌元素.addEventListener('dragstart', 处理拖动开始);
+            return 牌元素;
+        }
+
+        function 处理拖动开始(事件) {
+            当前选中牌 = 事件.target;
+        }
+
+        function 初始化游戏() {
+            document.getElementById('抽牌堆').addEventListener('dragover', 处理拖动悬停);
+            document.getElementById('抽牌堆').addEventListener('drop', 处理放置);
+            初始化牌堆();
+            发牌();
+        }
+
+        function 发牌() {
+            const 桌面牌堆 = document.getElementById('桌面牌堆');
+            let 牌组索引 = 0;
+            
+            for (let 甲 = 0; 甲 < 7; 甲++) {
+                const 当前牌堆 = document.createElement('div');
+                当前牌堆.className = '牌堆';
+                
+                for (let 乙 = 0; 乙 <= 甲; 乙++) {
+                    const 当前牌 = 牌堆[牌组索引++];
+                    当前牌堆.appendChild(创建牌元素(当前牌));
+                }
+                当前牌堆.lastChild.牌数据.可见 = true;
+                桌面牌堆.appendChild(当前牌堆);
+            }
+        }
+
+        function 处理拖动悬停(事件) {
+            event.preventDefault();
+        }
+
+        function 处理放置(事件) {
+            event.preventDefault();
+            if (当前选中牌 && 当前选中牌.parentElement !== event.target) {
+                event.target.appendChild(当前选中牌);
+            }
+        }
+
+        function 新游戏() {
+            牌堆 = [];
+            document.getElementById('桌面牌堆').innerHTML = '';
+            初始化牌堆();
+            发牌();
+        }
+
+        function 抽牌() {
+            const 抽牌堆 = document.getElementById('抽牌堆');
+            const 新牌 = 牌堆.pop();
+            if (新牌) {
+                抽牌堆.appendChild(创建牌元素(新牌));
+            }
+        }
+
+        // 启动游戏
+        初始化游戏();
+    </script>
 </body>
 </html>
